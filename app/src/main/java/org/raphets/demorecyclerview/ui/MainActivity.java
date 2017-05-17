@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnDragSwipe= (Button) findViewById(R.id.btn_first);
-        btnPullRefresh= (Button) findViewById(R.id.btn_second);
-        btnPullRefreshNoTip= (Button) findViewById(R.id.btn_third);
-        btnSupportHeader= (Button) findViewById(R.id.btn_fourth);
+        btnDragSwipe = (Button) findViewById(R.id.btn_first);
+        btnPullRefresh = (Button) findViewById(R.id.btn_second);
+        btnPullRefreshNoTip = (Button) findViewById(R.id.btn_third);
+        btnSupportHeader = (Button) findViewById(R.id.btn_fourth);
         btnDragSwipe.setOnClickListener(this);
         btnPullRefresh.setOnClickListener(this);
         btnPullRefreshNoTip.setOnClickListener(this);
@@ -30,18 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_first:
-                startActivity(new Intent(MainActivity.this,DragSwipeActivity.class));
+                startActivity(new Intent(MainActivity.this, DragSwipeActivity.class));
                 break;
             case R.id.btn_second:
-                startActivity(new Intent(MainActivity.this,PullRefreshActivity.class));
+                startActivity(new Intent(MainActivity.this, PullRefreshActivity.class));
                 break;
             case R.id.btn_third:
-                startActivity(new Intent(MainActivity.this,PullRefreshNoTipActivity.class));
+                startActivity(new Intent(MainActivity.this, PullRefreshNoTipActivity.class));
                 break;
             case R.id.btn_fourth:
-                startActivity(new Intent(MainActivity.this,SupportHeadViewActivity.class));
+                startActivity(new Intent(MainActivity.this, SupportHeadViewActivity.class));
                 break;
             default:
                 break;

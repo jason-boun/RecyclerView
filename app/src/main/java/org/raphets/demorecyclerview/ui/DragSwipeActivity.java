@@ -43,12 +43,12 @@ public class DragSwipeActivity extends AppCompatActivity {
         }
 
         mAdapter = new DragSwipeAdapter(this, mData, R.layout.item);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setItemTouchHelper();
 
-        SnackbarUtil.show(getWindow().getDecorView(),"支持长按拖拽、左右滑动删除的哦(⊙o⊙)哦");
+        SnackbarUtil.show(getWindow().getDecorView(),"支持长按拖拽、左右滑动删除的(⊙o⊙)哦");
 
     }
 

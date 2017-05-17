@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:id="@+id/activity_main"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="30dp">
 
     <Button
         android:id="@+id/btn_first"
-        android:textColor="@android:color/white"
-        android:text="可拖拽可滑动删除RecyclerView"
-        android:background="@android:color/holo_green_light"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:background="@android:color/holo_green_light"
+        android:text="可拖拽可滑动删除RecyclerView"
+        android:textColor="@android:color/white"/>
+
     <Button
         android:id="@+id/btn_second"
-        android:layout_marginTop="20dp"
-        android:textColor="@android:color/white"
-        android:text="下拉刷新上拉加载RecyclerView"
-        android:background="@android:color/holo_green_light"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_green_light"
+        android:text="下拉刷新上拉加载RecyclerView"
+        android:textColor="@android:color/white"/>
+
     <Button
         android:id="@+id/btn_third"
-        android:layout_marginTop="20dp"
-        android:textColor="@android:color/white"
-        android:text="下拉刷新上拉加载底部无提示RecyclerView"
-        android:background="@android:color/holo_green_light"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_green_light"
+        android:text="下拉刷新上拉加载底部无提示RecyclerView"
+        android:textColor="@android:color/white"/>
+
     <Button
         android:id="@+id/btn_fourth"
-        android:layout_marginTop="20dp"
-        android:textColor="@android:color/white"
-        android:text="支持HeadView和上拉加载"
-        android:background="@android:color/holo_green_light"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_green_light"
+        android:text="支持HeadView和上拉加载"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
