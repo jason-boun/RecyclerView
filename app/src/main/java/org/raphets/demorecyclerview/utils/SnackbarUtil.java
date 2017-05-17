@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class SnackbarUtil {
 
     public static void show(final View view, final String msg) {
-        Snackbar.make(view, msg, Snackbar.LENGTH_LONG).setAction("点击", new View.OnClickListener() {
+        Snackbar.make(view, msg, Snackbar.LENGTH_INDEFINITE).setAction("点击", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "哈哈", Toast.LENGTH_SHORT).show();
