@@ -23,15 +23,15 @@ public class PullRefreshActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
-    private List<String> mDatas=new ArrayList<>();
-    private int page=0;
+    private List<String> mDatas = new ArrayList<>();
+    private int page = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pull_refresh);
-        mRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        mRecyclerView= (RecyclerView) findViewById(R.id.recyclerView);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         init();
         addListener();
@@ -39,19 +39,18 @@ public class PullRefreshActivity extends AppCompatActivity {
     }
 
     private void init() {
-        for (int i=0;i<10;i++){
-            mDatas.add("item>>>"+i);
+        for (int i = 0; i < 10; i++) {
+            mDatas.add("item>>>" + i);
         }
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-        mAdapter=new MyAdapter(this,mRecyclerView,mDatas,R.layout.item);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new MyAdapter(this, mRecyclerView, mDatas, R.layout.item, R.layout.progress_item);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
     private void addListener() {
-        mRefreshLayout.setColorSchemeColors(Color.RED,Color.BLUE,Color.BLACK);
+        mRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE, Color.BLACK);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,13 +68,13 @@ public class PullRefreshActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getApplicationContext(),position+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void refreshData() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -84,9 +83,9 @@ public class PullRefreshActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                final List<String> data=new ArrayList<String>();
-                for (int i=0;i<10;i++){
-                    data.add("refresh--"+new Random().nextInt(10));
+                final List<String> data = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    data.add("refresh--" + new Random().nextInt(10));
                 }
 
                 runOnUiThread(new Runnable() {
@@ -102,7 +101,7 @@ public class PullRefreshActivity extends AppCompatActivity {
 
     private void loadMore() {
         page++;
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -114,7 +113,7 @@ public class PullRefreshActivity extends AppCompatActivity {
 
                 final List<String> data = new ArrayList<String>();
                 for (int i = 0; i < 6; i++) {
-                    data.add("page" + page+"item"+i);
+                    data.add("page" + page + "item" + i);
                 }
                 //addData()是在自定义的Adapter中自己添加的方法，用来给list添加数据
                 runOnUiThread(new Runnable() {
@@ -129,15 +128,15 @@ public class PullRefreshActivity extends AppCompatActivity {
 
     }
 
-    class MyAdapter  extends BaseLoadMoreAdapter2<String>{
-        public MyAdapter(Context mContext, RecyclerView recyclerView, List<String> mDatas, int mLayoutId) {
-            super(mContext, recyclerView, mDatas, mLayoutId);
+    class MyAdapter extends BaseLoadMoreAdapter2<String> {
+        public MyAdapter(Context mContext, RecyclerView recyclerView, List<String> mDatas, int mLayoutId, int mLoadMoreLayoutId) {
+            super(mContext, recyclerView, mDatas, mLayoutId, mLoadMoreLayoutId);
         }
 
         @Override
         public void convert(Context mContext, RecyclerView.ViewHolder holder, String s) {
-            if (holder instanceof BaseViewHolder){
-                ((BaseViewHolder) holder).setText(R.id.tv,s);
+            if (holder instanceof BaseViewHolder) {
+                ((BaseViewHolder) holder).setText(R.id.tv, s);
             }
         }
     }

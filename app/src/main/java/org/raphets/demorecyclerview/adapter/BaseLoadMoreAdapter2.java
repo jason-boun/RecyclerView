@@ -14,27 +14,30 @@ import java.util.List;
 
 /**
  * Created by RaphetS on 2016/10/1.
- *  支持上拉加载
- *  底部有进度条
+ * 支持上拉加载
+ * 底部有进度条
  */
 
 public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
     private Context mContext;
-    private boolean isLoading=false;
+    private boolean isLoading = false;
     private OnLoadMoreListener mOnLoadMoreListener;
     private OnItemClickListener mItemClickListener;
     private onLongItemClickListener mLongItemClickListener;
     private List<T> mDatas;
     private int mLayoutId;
-    private final static int TYPE_ITEM=101;
-    private final static int TYPE_PROGRESS=102;
+    private int mLoadMoreLayoutId;
+    private final static int TYPE_ITEM = 101;
+    private final static int TYPE_PROGRESS = 102;
 
-    public BaseLoadMoreAdapter2(Context mContext, RecyclerView recyclerView,List<T> mDatas, int mLayoutId) {
+    public BaseLoadMoreAdapter2(Context mContext, RecyclerView recyclerView, List<T> mDatas, int mLayoutId, int mLoadMoreLayoutId) {
         this.mContext = mContext;
         this.mDatas = mDatas;
         this.mLayoutId = mLayoutId;
+        this.mLoadMoreLayoutId = mLoadMoreLayoutId;
         init(recyclerView);
     }
+
     private void init(RecyclerView recyclerView) {
         //mRecyclerView添加滑动事件监听
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -42,9 +45,9 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int    totalItemCount = linearLayoutManager.getItemCount();
-                int    lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-                if (!isLoading &&dy>0&&lastVisibleItemPosition>=totalItemCount-1) {
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                if (!isLoading && dy > 0 && lastVisibleItemPosition >= totalItemCount - 1) {
                     //此时是刷新状态
                     if (mOnLoadMoreListener != null) {
                         mOnLoadMoreListener.onLoadMore();
@@ -54,6 +57,7 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
             }
         });
     }
+
     public void updateData(List<T> data) {
         mDatas.clear();
         mDatas.addAll(data);
@@ -64,44 +68,45 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
         mDatas.addAll(data);
         notifyDataSetChanged();
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType==TYPE_ITEM){
-            View itemView= LayoutInflater.from(mContext).inflate(mLayoutId,parent,false);
-            BaseViewHolder baseViewHolder=new BaseViewHolder(itemView);
+        if (viewType == TYPE_ITEM) {
+            View itemView = LayoutInflater.from(mContext).inflate(mLayoutId, parent, false);
+            BaseViewHolder baseViewHolder = new BaseViewHolder(itemView);
             return baseViewHolder;
-        }else {
-            View progressView=LayoutInflater.from(mContext).inflate(R.layout.progress_item,parent,false);
-            ProgressViewHolder progressViewHolder= new ProgressViewHolder(progressView);
+        } else {
+            View progressView = LayoutInflater.from(mContext).inflate(mLoadMoreLayoutId, parent, false);
+            ProgressViewHolder progressViewHolder = new ProgressViewHolder(progressView);
             return progressViewHolder;
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-      if (holder instanceof BaseViewHolder){
-          convert(mContext, holder, mDatas.get(position));
-          ((BaseViewHolder) holder).mItemView.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  mItemClickListener.onItemClick(v,position);
-              }
-          });
-          ((BaseViewHolder) holder).mItemView.setOnLongClickListener(new View.OnLongClickListener() {
-              @Override
-              public boolean onLongClick(View v) {
-                  mLongItemClickListener.onLongItemClick(v,position);
-                  return true;
-              }
-          });
-      }
+        if (holder instanceof BaseViewHolder) {
+            convert(mContext, holder, mDatas.get(position));
+            ((BaseViewHolder) holder).mItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemClickListener.onItemClick(v, position);
+                }
+            });
+            ((BaseViewHolder) holder).mItemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mLongItemClickListener.onLongItemClick(v, position);
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position==getItemCount()-1){
+        if (position == getItemCount() - 1) {
             return TYPE_PROGRESS;
-        }else {
+        } else {
             return TYPE_ITEM;
         }
     }
@@ -111,17 +116,18 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mDatas.size()+1;
-    }
-    public void setLoading(boolean b){
-        isLoading=b;
+        return mDatas.size() + 1;
     }
 
-    public    interface OnItemClickListener {
+    public void setLoading(boolean b) {
+        isLoading = b;
+    }
+
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    public    interface onLongItemClickListener {
+    public interface onLongItemClickListener {
         void onLongItemClick(View view, int postion);
     }
 
@@ -132,14 +138,16 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
     public void setonLongItemClickListener(onLongItemClickListener listener) {
         this.mLongItemClickListener = listener;
     }
-    public void setOnLoadMoreListener(OnLoadMoreListener listener){
-        this.mOnLoadMoreListener=listener;
+
+    public void setOnLoadMoreListener(OnLoadMoreListener listener) {
+        this.mOnLoadMoreListener = listener;
     }
 
-    public interface OnLoadMoreListener{
+    public interface OnLoadMoreListener {
         void onLoadMore();
     }
-    public class ProgressViewHolder extends RecyclerView.ViewHolder{
+
+    public class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressViewHolder(View itemView) {
             super(itemView);
         }
