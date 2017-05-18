@@ -71,6 +71,12 @@ public class PullRefreshActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
+        mAdapter.setonLongItemClickListener(new BaseLoadMoreAdapter2.onLongItemClickListener() {
+            @Override
+            public void onLongItemClick(View view, int position) {
+                Toast.makeText(getApplicationContext(), position + "==long click", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void refreshData() {

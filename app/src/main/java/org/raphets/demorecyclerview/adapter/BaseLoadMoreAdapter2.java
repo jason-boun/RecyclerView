@@ -128,7 +128,7 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
     }
 
     public interface onLongItemClickListener {
-        void onLongItemClick(View view, int postion);
+        void onLongItemClick(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

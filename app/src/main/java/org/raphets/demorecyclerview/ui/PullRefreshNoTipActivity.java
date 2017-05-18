@@ -25,32 +25,32 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
 
-    private List<String> mDatas=new ArrayList<>();
+    private List<String> mDatas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pull_refresh_no_tip);
-        mRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        mRecyclerView= (RecyclerView) findViewById(R.id.recyclerView);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         init();
         addListener();
     }
+
     private void init() {
-        for (int i=0;i<10;i++){
-            mDatas.add("item>>>"+i);
+        for (int i = 0; i < 10; i++) {
+            mDatas.add("item>>>" + i);
         }
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-        mAdapter=new MyAdapter(this,mRecyclerView,mDatas,R.layout.item);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new MyAdapter(this, mRecyclerView, mDatas, R.layout.item);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
     private void addListener() {
-        mRefreshLayout.setColorSchemeColors(Color.RED,Color.BLUE,Color.BLACK);
+        mRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE, Color.BLACK);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -68,14 +68,14 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getApplicationContext(),position+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), position + "", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     private void refreshData() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -84,9 +84,9 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                final List<String> data=new ArrayList<String>();
-                for (int i=0;i<10;i++){
-                    data.add("refresh--"+new Random().nextInt(10));
+                final List<String> data = new ArrayList<String>();
+                for (int i = 0; i < 10; i++) {
+                    data.add("refresh--" + new Random().nextInt(10));
                 }
 
                 runOnUiThread(new Runnable() {
@@ -101,7 +101,7 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
     }
 
     private void loadMore() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -129,8 +129,6 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
     }
 
 
-
-
     class MyAdapter extends BaseLoadMoreAdapter<String> {
         public MyAdapter(Context mContext, RecyclerView recyclerView, List mDatas, int mLayoutId) {
             super(mContext, recyclerView, mDatas, mLayoutId);
@@ -138,7 +136,7 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
 
         @Override
         protected void convert(Context mContext, BaseViewHolder holder, String s) {
-            holder.setText(R.id.tv,s);
+            holder.setText(R.id.tv, s);
         }
     }
 

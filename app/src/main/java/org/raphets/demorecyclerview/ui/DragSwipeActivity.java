@@ -48,13 +48,13 @@ public class DragSwipeActivity extends AppCompatActivity {
 
         setItemTouchHelper();
 
-        SnackbarUtil.show(getWindow().getDecorView(),"支持长按拖拽、左右滑动删除的(⊙o⊙)哦");
+        SnackbarUtil.show(getWindow().getDecorView(), "支持长按拖拽、左右滑动删除的(⊙o⊙)哦");
 
     }
 
 
     private void setItemTouchHelper() {
-        DefaultItemTouchHelpCallback mCallback= new DefaultItemTouchHelpCallback(new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
+        DefaultItemTouchHelpCallback mCallback = new DefaultItemTouchHelpCallback(new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
             @Override
             public void onSwiped(int adapterPosition) {
                 // 滑动删除的时候，从数据库、数据源移除，并刷新UI
@@ -101,16 +101,16 @@ public class DragSwipeActivity extends AppCompatActivity {
     }
 
 
-   class DragSwipeAdapter extends BaseAdapter<String> {
-       public DragSwipeAdapter(Context mContext, List<String> mDatas, int mLayoutId) {
-           super(mContext, mDatas, mLayoutId);
-       }
+    class DragSwipeAdapter extends BaseAdapter<String> {
+        public DragSwipeAdapter(Context mContext, List<String> mDatas, int mLayoutId) {
+            super(mContext, mDatas, mLayoutId);
+        }
 
-       @Override
-       protected void convert(Context mContext, BaseViewHolder holder, String s) {
-            holder.setText(R.id.tv,s);
-       }
-   }
+        @Override
+        protected void convert(Context mContext, BaseViewHolder holder, String s) {
+            holder.setText(R.id.tv, s);
+        }
+    }
 }
 
 
